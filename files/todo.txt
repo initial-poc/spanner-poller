@@ -1,10 +1,11 @@
+completed:
+
 use SpannerRepository
+
+remove dependency spanner repository
 
 write API which do the insert/updated
 	postmane runner with multiple inserts/update/delete
-
-multiple insert/update/delete multiple table simultaneosuly
-	application should be able to handle
 
 filter subscription
 	Implement this
@@ -13,10 +14,12 @@ filter subscription
 		1 consumer consumes all messages
 		1 consumer consumes by filter
 
-i have made some pointers -remove dependency spanner repository
-simultanious changes in repository
 filter on behalf ok key
-jpa(not clear on this)
+---------------------------------------------------------------------------------------
+multiple insert/update/delete multiple table simultaneosuly
+	application should be able to handle
+
+simultanious changes in repository
 multimle row update
 delete any record
 

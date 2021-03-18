@@ -1,6 +1,8 @@
 package com.infogain.gcp.poc.poller.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.google.cloud.spanner.Statement;
@@ -12,6 +14,7 @@ import com.infogain.gcp.poc.poller.repository.PollerCommitTimestampRepository;
 import com.infogain.gcp.poc.util.ApplicationConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gcp.pubsub.core.PubSubTemplate;
@@ -65,12 +68,26 @@ public class PnrService {
 	}
 
 	private void processMessage(List<PNREntity> pnrEntities) {
-		pnrEntities.forEach(pnrEntity -> publishMessage(messageConverter.convert(pnrEntity)));
+		pnrEntities.forEach(pnrEntity -> {
+			Map<String, String> attributes = new HashMap<>();
+
+			if(StringUtils.isNotBlank(pnrEntity.getRemark())){
+				attributes.put("remark", pnrEntity.getRemark());
+			}
+
+			if(StringUtils.isNotBlank(pnrEntity.getMobileNumber())){
+				attributes.put("mobileNumber", pnrEntity.getMobileNumber());
+			}
+
+			String messageJson = messageConverter.convert(pnrEntity);
+			publishMessage(messageJson, attributes);
+
+		});
 	}
 
-	private void publishMessage(String message) {
+	private void publishMessage(String message, Map<String, String> attributes) {
 		log.info("publishing message {} to topic {}", message, topicName);
-		pubSubTemplate.publish(topicName, message);
+		pubSubTemplate.publish(topicName, message, attributes);
 		log.info("published message {} to topic {}", message, topicName);
 	}
 
