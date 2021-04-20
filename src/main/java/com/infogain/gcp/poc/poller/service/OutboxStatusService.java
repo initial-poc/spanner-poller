@@ -3,7 +3,6 @@ package com.infogain.gcp.poc.poller.service;
 import java.net.InetAddress;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gcp.data.spanner.core.SpannerOperations;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +24,7 @@ public class OutboxStatusService  {
 	
 	private final SpannerOutBoxStatusRepository outBoxStatusRepository;
 	
-	@Value(value = "${application.name}")
-	private String applicationName;
+	 
 	
 	@Autowired
 	@SneakyThrows

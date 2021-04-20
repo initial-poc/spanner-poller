@@ -32,10 +32,9 @@ public class PnrService {
 		ip= InetAddress.getLocalHost().getHostAddress();
 	}
 
-	@Value(value = "${application.name}")
-	private String applicationName;
 
-	@Value(value="${process.delay}")
+
+	@Value(value="${delay}")
 	private int processDelay;
 	public void processRecords() {
 
