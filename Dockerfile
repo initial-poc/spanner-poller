@@ -16,4 +16,4 @@ ARG jar_file=target/pnr-order-poc.jar
 COPY ${jar_file} pnr-order-poc.jar
 
 # run the jar file
-ENTRYPOINT ["java", "-jar", "pnr-order-poc.jar"]
+ENTRYPOINT ["java", "-jar", "pnr-order-poc.jar" "-Ddelay=1"]
