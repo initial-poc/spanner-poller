@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
 
 # maintainer info
-LABEL maintainer="donthu.babu@infogain.com"
+LABEL maintainer="aarfi.siddique@infogain.com"
 
 # add volume pointing to /tmp
 VOLUME /tmp
@@ -10,10 +10,10 @@ VOLUME /tmp
 EXPOSE 9001
 
 # application jar file when packaged
-ARG jar_file=target/spanner-poller-converter-publisher.jar
+ARG jar_file=target/pnr-order-poc.jar
 
 # add application jar file to container
-COPY ${jar_file} spanner-poller-converter-publisher.jar
+COPY ${jar_file} pnr-order-poc.jar
 
 # run the jar file
-ENTRYPOINT ["java", "-jar", "spanner-poller-converter-publisher.jar"]
+ENTRYPOINT ["java", "-jar", "pnr-order-poc.jar"]

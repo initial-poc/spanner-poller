@@ -25,5 +25,7 @@ public class OutboxStatusEntity {
 	private Timestamp created ;
 	private Timestamp updated ;
 	private String instance;
+	
+	 
 
 }
