@@ -1,24 +1,19 @@
-server.port: 9000
-
+#server.port: 9000
+#spring.jpa.show-sql=true
+#spring.jpa.properties.hibernate.jdbc.batch_size=20
 spring:
  profiles.active: dev
  cloud:
    gcp:
-     project-id: gcp-practice-project-307011
+     project-id: pnr-order-poc
      # credentials.location: file:C:\\Users\\ashu3\\AppData\\Roaming\\gcloud\\application_default_credentials.json
      spanner:
        instance-id: instance-1
        database: database-1
 
-#poller:
-# commit:
-#  table:
-#   name: POLLER_COMMIT_TIMESTAMPS
-project:
- name: gcp-practice-project-307011
-primary:
- table:
-   name: pnr
+#application:
+# name: pnr-order-poc-instance-1
+ 
 
 ## logging
 logging:
@@ -39,8 +34,8 @@ info:
     version: 1.0.0
     java-vendor: ${java.specification.vendor}
 
-app:
-  topic.name: topic-1
+process:
+ delay: 10 
 ---
 spring.profiles: dev
 
