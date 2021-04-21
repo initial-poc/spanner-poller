@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pnr-order-poc-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: pnr-order-poc-pod
@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - image: gcr.io/pnr-order-poc/spanner-poller-converter-publisher:latest
-          name: hello-world
+          name: pnr-order-poc
