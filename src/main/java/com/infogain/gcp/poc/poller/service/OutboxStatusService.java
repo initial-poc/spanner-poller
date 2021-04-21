@@ -3,6 +3,7 @@ package com.infogain.gcp.poc.poller.service;
 import java.net.InetAddress;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gcp.data.spanner.core.SpannerOperations;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,8 @@ public class OutboxStatusService  {
 	private final String ip ;
 	
 	private final SpannerOutBoxStatusRepository outBoxStatusRepository;
-	
+	@Value(value = "${name}")
+	private String applicationName;
 	 
 	
 	@Autowired
@@ -35,10 +37,8 @@ public class OutboxStatusService  {
 	
 	public OutboxStatusEntity processRecord(OutboxEntity outboxEntity) {
 
-		OutboxStatusEntity outboxStatusEntity = OutboxStatusEntity.builder().version(outboxEntity.getVersion()).locator(outboxEntity.getLocator()).status(PROCESSING_STATUS).destination("TTY").instance(ip).created(Timestamp.now()).updated(Timestamp.now()).build();
+		OutboxStatusEntity outboxStatusEntity = OutboxStatusEntity.builder().version(outboxEntity.getVersion()).locator(outboxEntity.getLocator()).status(PROCESSING_STATUS).destination("TTY").instance(applicationName).created(Timestamp.now()).updated(Timestamp.now()).build();
 		log.info("Going to process record {}",outboxStatusEntity);
-		//outBoxStatusRepository.processRecord(outboxStatusEntity.getLocator(), outboxStatusEntity.getVersion(), outboxStatusEntity.getDestination(), outboxStatusEntity.getStatus(), outboxStatusEntity.getInstance());
-//		outBoxStatusRepository.save(outboxStatusEntity);
 		SpannerOperations template = outBoxStatusRepository.getSpannerTemplate();
 		template
 		.insert(outboxStatusEntity);
@@ -47,8 +47,8 @@ public class OutboxStatusService  {
 	
 	
 	public void completeRecord(OutboxStatusEntity processingRecord) {
-		OutboxStatusEntity completeTaskStatus = OutboxStatusEntity.builder().created(processingRecord.getCreated()).destination(processingRecord.getDestination()).instance(ip).locator(processingRecord.getLocator()).status(COMPLETE_STATUS).updated(Timestamp.now()).version(processingRecord.getVersion()).build();
-		log.info("Completed record {} by application-> {} ",completeTaskStatus,ip);
+		OutboxStatusEntity completeTaskStatus = OutboxStatusEntity.builder().created(processingRecord.getCreated()).destination(processingRecord.getDestination()).instance(applicationName).locator(processingRecord.getLocator()).status(COMPLETE_STATUS).updated(Timestamp.now()).version(processingRecord.getVersion()).build();
+		log.info("Completed record {} by application-> {} ",completeTaskStatus,applicationName);
 		outBoxStatusRepository.save(completeTaskStatus);
 	}
 
