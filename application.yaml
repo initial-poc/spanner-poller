@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world
+  name: pnr-order-poc-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: hello-world
+      app: pnr-order-poc-pod
   template:
     metadata:
       labels:
-        app: hello-world
+        app: pnr-order-poc-pod
     spec:
       containers:
         - image: gcr.io/pnr-order-poc/spanner-poller-converter-publisher:latest
