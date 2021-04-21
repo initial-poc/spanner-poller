@@ -15,4 +15,4 @@ spec:
       containers:
         - image: gcr.io/pnr-order-poc/spanner-poller-converter-publisher:latest
           name: pnr-order-poc
-          args: ["limit", "10"]    
+            
