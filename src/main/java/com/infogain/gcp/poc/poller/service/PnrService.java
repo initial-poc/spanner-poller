@@ -46,7 +46,7 @@ public class PnrService {
  
 	public void processRecords() {
 		
-		log.info("Getting record to process by application->  {}", applicationName);
+		log.info("Getting record to process by application->  {}", ip);
 		Stopwatch stopWatch = Stopwatch.createStarted();
 		SpannerOperations spannerTemplate = spannerOutboxRepository.getSpannerTemplate();
 		List<OutboxEntity> recordToProcess = spannerTemplate.query(OutboxEntity.class, Statement.of(String.format(OUTBOX_SQL,recordLimit)),null);
@@ -56,7 +56,7 @@ public class PnrService {
 			log.info("No Record to process");
 			return;
 		}
-		log.info("total record - {} to process by application->  {}", recordToProcess.size(), applicationName);
+		log.info("total record - {} to process by application->  {}", recordToProcess.size(), ip);
 		log.info("RECORD {}", recordToProcess);
 
 		process(recordToProcess);

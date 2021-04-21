@@ -37,7 +37,7 @@ public class OutboxStatusService  {
 	
 	public OutboxStatusEntity processRecord(OutboxEntity outboxEntity) {
 
-		OutboxStatusEntity outboxStatusEntity = OutboxStatusEntity.builder().version(outboxEntity.getVersion()).locator(outboxEntity.getLocator()).status(PROCESSING_STATUS).destination("TTY").instance(applicationName).created(Timestamp.now()).updated(Timestamp.now()).build();
+		OutboxStatusEntity outboxStatusEntity = OutboxStatusEntity.builder().version(outboxEntity.getVersion()).locator(outboxEntity.getLocator()).status(PROCESSING_STATUS).destination("TTY").instance(ip).created(Timestamp.now()).updated(Timestamp.now()).build();
 		log.info("Going to process record {}",outboxStatusEntity);
 		SpannerOperations template = outBoxStatusRepository.getSpannerTemplate();
 		template
@@ -47,8 +47,8 @@ public class OutboxStatusService  {
 	
 	
 	public void completeRecord(OutboxStatusEntity processingRecord) {
-		OutboxStatusEntity completeTaskStatus = OutboxStatusEntity.builder().created(processingRecord.getCreated()).destination(processingRecord.getDestination()).instance(applicationName).locator(processingRecord.getLocator()).status(COMPLETE_STATUS).updated(Timestamp.now()).version(processingRecord.getVersion()).build();
-		log.info("Completed record {} by application-> {} ",completeTaskStatus,applicationName);
+		OutboxStatusEntity completeTaskStatus = OutboxStatusEntity.builder().created(processingRecord.getCreated()).destination(processingRecord.getDestination()).instance(ip).locator(processingRecord.getLocator()).status(COMPLETE_STATUS).updated(Timestamp.now()).version(processingRecord.getVersion()).build();
+		log.info("Completed record {} by application-> {} ",completeTaskStatus,ip);
 		outBoxStatusRepository.save(completeTaskStatus);
 	}
 
