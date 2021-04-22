@@ -43,3 +43,9 @@ ON OUTBOX_STATUS (
 )
 ```
  
+# How to run application
+
+* There is runtime param limit, it is used to limit the record set.
+```
+java -jar -Dlimit=5 pnr-order-poc.jar
+```
