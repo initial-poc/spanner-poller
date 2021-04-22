@@ -24,8 +24,7 @@ public class OutboxStatusService  {
 	private final String ip ;
 	
 	private final SpannerOutBoxStatusRepository outBoxStatusRepository;
-	@Value(value = "${name}")
-	private String applicationName;
+	 
 	 
 	
 	@Autowired

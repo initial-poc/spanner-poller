@@ -1,18 +1,18 @@
-#server.port: 9000
-#spring.jpa.show-sql=true
 #spring.jpa.properties.hibernate.jdbc.batch_size=20
 spring:
+ jpa:
+   properties:
+     hibernate:
+       jdbc:
+         batch_size: 20
  profiles.active: dev
  cloud:
    gcp:
      project-id: pnr-order-poc
-     # credentials.location: file:C:\\Users\\ashu3\\AppData\\Roaming\\gcloud\\application_default_credentials.json
      spanner:
        instance-id: instance-1
        database: database-1
 
-#application:
-# name: pnr-order-poc-instance-1
  
 
 ## logging
@@ -29,13 +29,12 @@ management:
 
 info:
   app:
-    name: spanner-pollar-convereter-publisher
-    description: Google cloud spanner poller converter publisher
+    name: pnr-order-poc
+    description: Google cloud spanner poller  
     version: 1.0.0
     java-vendor: ${java.specification.vendor}
 
-process:
- delay: 10 
+
 ---
 spring.profiles: dev
 

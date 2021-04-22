@@ -27,8 +27,7 @@ public class PnrService {
 	private final SpannerOutboxRepository spannerOutboxRepository;
 	private final String ip ;
 	
-	@Value(value = "${name}")
-	private String applicationName;
+ 
 	
 	@Value(value="${limit}")
 	private int recordLimit;
