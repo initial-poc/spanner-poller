@@ -1,9 +1,22 @@
 # Google cloud PNR Order POC
 
-* Create maven project using below command
+* Clone maven project using below command
 ```
-mvn archetype:generate -DgroupId=com.infogain.gcp.poc -DartifactId=pnr-order-poc -Dversion=1.0.0 -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+git clone https://github.com/initial-poc/spanner-poller.git
 ```
+
+* Build the code using below command
+```
+mvn clean package
+```
+
+# Google Cloud Spanner DB Configuration
+```
+instance = instance-1
+database id = database-1
+project name = pnr-order-poc
+```
+
 
 # Spanner DDL scripts
 * OUTBOX table
